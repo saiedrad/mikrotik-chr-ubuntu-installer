@@ -1,42 +1,39 @@
-# MikroTik CHR Installer on Ubuntu (Headless Mode)
+# 🚀 MikroTik CHR Installer on Ubuntu (Headless + SSH Friendly)
 
-A simple script to install and run MikroTik CHR (Cloud Hosted Router) on Ubuntu-based VPS without needing a GUI.
+A one-line, automated script to install and run **MikroTik Cloud Hosted Router (CHR)** on any Ubuntu-based VPS — **without GUI, without GTK errors, without hassle.**
 
-Perfect for headless servers and VPS environments.
+Perfect for:
+- Running a private VPN service
+- Reselling internet access
+- Testing RouterOS features
+- Building your own "SanSystem" network services
 
-## Features
+✅ Works on **Iranian VPS**  
+✅ No GUI required  
+✅ Uses `-nographic` + `screen`  
+✅ Auto-forwards Winbox (port 8291)  
+✅ Supports RouterOS **v7.20+**  
+✅ Unlimited license compatible
 
-- Runs without GUI (no GTK errors).
-- Uses QEMU/KVM in headless mode.
-- Auto-forwards port 8291 for Winbox access.
-- Includes an interactive menu for install/stop/cleanup.
+---
 
-## Prerequisites
+## 💥 One-Liner Install (Copy & Paste)
 
-- Ubuntu 20.04 or higher
-- `sudo` access
-- Internet connection
+```
+sudo apt install -y screen wget unzip qemu-utils && wget -O chr.zip https://download.mikrotik.com/routeros/7.20/chr-7.20.img.zip && unzip chr.zip && screen -dmS mikrotik sudo qemu-system-x86_64 -drive file=chr-7.20.img,if=virtio -boot d -m 512M -smp 1 -netdev user,id=mynet0,hostfwd=tcp::8291-:8291 -device virtio-net-pci,netdev=mynet0 -nographic 
+```
+📌 After Installation
 
-## Installation
+1.Wait 60 seconds for boot.
 
-1. Download the script:
+2.Open Winbox on your PC → Connect to:
+```
+IP_OF_YOUR_VPS:8291
+```
+Login with:
 
-```bash
-wget https://raw.githubusercontent.com/YOUR_USERNAME/mikrotik-chr-installer/main/mikrotik-menu.sh
-Make it executable:
-bash
+User: admin
 
-
-1
-chmod +x mikrotik-menu.sh
-Run the script:
-bash
-
-
-1
-./mikrotik-menu.sh
-Usage
-Install: Downloads and runs CHR v7.20 in background.
-Stop: Stops the VM and optionally removes the image file.
-Exit: Exits the menu.
-After installation, connect using Winbox to YOUR_VPS_IP:8291.[mikrotik-menu.sh](https://github.com/user-attachments/files/23638008/mikrotik-menu.sh)
+  Password: (leave blank first time)
+  
+🔐 Set password after first login:
