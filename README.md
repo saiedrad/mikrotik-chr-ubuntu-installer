@@ -22,6 +22,12 @@ Perfect for:
 ```
 sudo apt install -y screen wget unzip qemu-utils && wget -O chr.zip https://download.mikrotik.com/routeros/7.20/chr-7.20.img.zip && unzip chr.zip && screen -dmS mikrotik sudo qemu-system-x86_64 -drive file=chr-7.20.img,if=virtio -boot d -m 512M -smp 1 -netdev user,id=mynet0,hostfwd=tcp::8291-:8291 -device virtio-net-pci,netdev=mynet0 -nographic 
 ```
+
+## 💥 One-Liner Install KVM-Optimized (Copy & Paste)
+
+```
+sudo apt update && sudo apt install -y screen wget unzip qemu-utils qemu-system-x86 && wget -O chr.zip https://download.mikrotik.com/routeros/7.20/chr-7.20.img.zip && unzip chr.zip && qemu-img convert -f raw -O qcow2 chr-7.20.img mikrotik.qcow2 && screen -dmS mikrotik sudo qemu-system-x86_64 -drive file=mikrotik.qcow2,if=virtio -boot d -m 512M -smp 2 -enable-kvm -netdev user,id=n1,hostfwd=tcp::8291-:8291 -device virtio-net-pci,netdev=n1 -nographic
+```
 📌 After Installation
 
 1.Wait 60 seconds for boot.
